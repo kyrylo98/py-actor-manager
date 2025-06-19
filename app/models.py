@@ -7,4 +7,3 @@ class Actor:
         self.id = id
         self.firstName = first_name
         self.last_name = last_name
-
