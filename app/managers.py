@@ -7,8 +7,7 @@ class ActorManager:
 
     def __init__(self, db_name: str) -> None:
         self.db_name = db_name
-        self._conn = sqlite3.connect("actor.db")
-        self.table_name = "actors"
+        self._conn = sqlite3.connect(db_name)
 
     def create(self, first_name: str, last_name: str) -> Actor:
         self._conn.execute(
