@@ -7,7 +7,7 @@ class ActorManager:
 
     def __init__(self, db_name: str) -> None:
         self.db_name = db_name
-        self._conn = sqlite3.connect(db_name)  # Исправлено на использование db_name вместо "actor.db"
+        self._conn = sqlite3.connect(db_name)
         self._conn.execute(f"""
             CREATE TABLE IF NOT EXISTS {self.table_name} (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,11 +24,13 @@ class ActorManager:
             (first_name, last_name)
         )
         self._conn.commit()
-        return Actor(id=cursor.lastrowid, first_name=first_name, last_name=last_name)
+        return Actor(id=cursor.lastrowid, first_name=first_name,
+                     last_name=last_name)
 
     def all(self) -> list:
         cursor = self._conn.execute(f"SELECT * FROM {self.table_name}")
-        return [Actor(id=row[0], first_name=row[1], last_name=row[2]) for row in cursor.fetchall()]
+        return [Actor(id=row[0], first_name=row[1], last_name=row[2])
+                for row in cursor.fetchall()]
 
     def update(self, pk: int, new_first_name: str,
                new_last_name: str) -> None:
